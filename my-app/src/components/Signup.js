@@ -1,42 +1,42 @@
 import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-//import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 
 
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    //const { signup } = useAuth()
+    const { signup } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    //   async function handleSubmit(e){
-    //     e.preventDefault()
+      async function handleSubmit(e){
+        e.preventDefault()
 
-    //     if(passwordRef.current.value !== passwordConfirmRef.current.value){
-    //         return setError('Password do not match')
-    //     }
+        if(passwordRef.current.value !== passwordConfirmRef.current.value){
+            return setError('Password do not match')
+        }
 
-    //     try {
-    //       setError('')
-    //       setLoading(true)
-    //       await signup(emailRef.current.value, passwordRef.current.value)
-    //     } catch{
-    //         setError('Failed to create an account')
-    //     }
-    //     setLoading(false)
+        try {
+          setError('')
+          setLoading(true)
+          await signup(emailRef.current.value, passwordRef.current.value)
+        } catch{
+            setError('Failed to create an account')
+        }
+        setLoading(false)
         
-    // }
+    }
 
     return (
-        <>
+        <div>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-3">Sign-up</h2>
-                 {/* {error && <Alert variant="danger">{error}</Alert>} */}
-                    {/* <Form onSubmit={handleSubmit}> */}
-                    <Form>
+                        {error && <Alert variant="danger">{error}</Alert>} 
+                     <Form onSubmit={handleSubmit}>
+
                         <Form.Group id="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" ref={emailRef} required></Form.Control>
@@ -56,6 +56,6 @@ export default function Signup() {
             <div className="w-100 text-center mt-2">
                 Already have an account? Log in
             </div>
-        </>
+        </div>
     )
 }
